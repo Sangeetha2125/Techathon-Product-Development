@@ -12,3 +12,6 @@
   text-decoration: none;
   color: black;
 }
+input[type=date]::placeholder {
+  color: transparent;
+}

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { AppBar, Toolbar, Button, Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import axios from 'axios'
+import MemoriesPage from "./Memories/MemoriesPage"
 
 function HomePage(){
 
@@ -42,6 +43,7 @@ function HomePage(){
                     </Button>}
                 </Toolbar>
             </AppBar>
+            <MemoriesPage />
         </Box>
     )
 }

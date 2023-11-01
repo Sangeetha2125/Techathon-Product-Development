@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MemoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::controller(UserController::class)->group(
-    function(){
-        Route::get('users','index');
-        Route::post('users','create');
-        Route::get('users/{id}','show');
-        Route::get('users/{id}/edit','edit');
-        Route::put('users/{id}/edit','update');
-        Route::delete('users/{id}/delete','destroy');
-    }
-);
+Route::controller(MemoriesController::class)->group(function () {
+    Route::get('memories', 'index');
+    Route::post('memories', 'store');
+});
