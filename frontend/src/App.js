@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import Timeline from './pages/Timeline/Timeline'
 
 function App() {
 
@@ -35,6 +36,11 @@ function App() {
         } />
          <Route path="/reset-password" element={
           <ResetPassword />
+        } />
+        <Route path='/view-timeline' element={
+          <Protected>
+            <Timeline />
+          </Protected>
         } />
       </Routes>
     </BrowserRouter>
