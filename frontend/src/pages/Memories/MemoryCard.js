@@ -29,7 +29,7 @@ function MemoryCard({memory}){
     }
 
     const handleDelete = (event) => {
-        axios.delete(`/memories/${event.target.id}/delete`)
+        axios.delete(`/memories/${memory.id}/delete`)
         .then(res => {
             localStorage.setItem('alertMessage',res.data.message)
             setShowDeleteDialog(false)
@@ -40,7 +40,7 @@ function MemoryCard({memory}){
             console.log(err)
         })
     }
-    
+
     const handleAlertClose = () => {
         setShowAlert(false)
         localStorage.removeItem('alertMessage')
@@ -70,7 +70,7 @@ function MemoryCard({memory}){
             </Avatar>
             }
             action={
-            <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id} >
+            <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id}>
                 <DeleteIcon/>
             </IconButton>
             }

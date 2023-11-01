@@ -1,5 +1,5 @@
 import {  Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Snackbar, Stack,TextField} from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AddIcon from '@mui/icons-material/Add'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import CloseIcon from '@mui/icons-material/Close'
@@ -107,6 +107,9 @@ function MemoriesPage(){
         setIsLocationValid(true)
         setName('')
         setFilePath('')
+        setDate('')
+        setDescription('')
+        setLocation('')
         setErrorName('')
         setErrorDate('')
         setErrorDescription('')
@@ -118,6 +121,19 @@ function MemoriesPage(){
         setShowAlert(false)
         localStorage.removeItem('alertMessage')
     }
+
+    const [memories,setMemories] = useState([])
+
+    useEffect(()=>{
+        const user_id = JSON.parse(localStorage.getItem('current_user')).id
+        axios.get(`memories?user=${user_id}`)
+        .then(res => {
+            setMemories(res.data.data)
+        })
+        .catch(err => {
+            setMemories([])
+        })
+    },[memories])
 
     return (
         <Box>
@@ -184,7 +200,7 @@ function MemoriesPage(){
                     }}>Add New</Button>
                 </Stack>
             </Box>
-            <MemoriesList />
+            <MemoriesList memories={memories}/>
         </Box>
     )
 }

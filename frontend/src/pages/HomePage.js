@@ -50,7 +50,7 @@ function HomePage(){
                    </Stack>
                 </Toolbar>
             </AppBar>
-            <MemoriesPage />
+            <MemoriesPage/>
         </Box>
     )
 }
