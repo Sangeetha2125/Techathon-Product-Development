@@ -28,4 +28,5 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(MemoriesController::class)->group(function () {
     Route::get('memories', 'index');
     Route::post('memories', 'store');
+    Route::delete('memories/{id}/delete','destroy');
 });

@@ -1,5 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import MemoryCard from "./MemoryCard"
+import './Memories.css'
 
 function MemoriesList(){
 
@@ -17,9 +19,11 @@ function MemoriesList(){
     },[])
 
     return (
-        memories && memories.map(memory => {
-            return <img src={memory.image_path} alt="" />
-        })
+        <div className="memories-list">
+            {memories && memories.map(memory => {
+                return <MemoryCard key={memory.id} memory={memory} />
+            })}
+        </div>
     )
 }
 

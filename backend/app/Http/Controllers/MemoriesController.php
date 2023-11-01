@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Memories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class MemoriesController extends Controller
 {
@@ -16,10 +17,19 @@ class MemoriesController extends Controller
     public function index(){
         $query = Memories::query();
         $queryParams = request()->query->all();
+        $sort = (isset($queryParams['sort']))?$queryParams['sort']:'date';
+        $sort_type = (isset($queryParams['sort_type']))?$queryParams['sort_type']:'desc';
         $user=(isset($queryParams['user']))?$queryParams['user']:0;
         unset($queryParams['user']);
 
-        $memories = $query->where('user_id',$user)->get();
+        unset($queryParams['sort']);
+        unset($queryParams['sort_type']);
+
+        foreach ($queryParams as $field_name => $field_value) {
+            $query->where($field_name, $field_value);
+        }
+
+        $memories = $query->where('user_id',$user)->orderBY($sort,$sort_type)->get();
 
         if($memories->count() > 0){
             return $this->successResponse($memories, 'Memories Successfully Fetched');
@@ -37,6 +47,14 @@ class MemoriesController extends Controller
             'date'=>'required',
             'file' => 'required|mimetypes:image/jpeg,image/png,image/gif,image/webp'
         ]);
+
+        $inputDate = $request->date;
+        $currentDate = Carbon::now();
+
+        if (!Carbon::parse($inputDate)->lte($currentDate)) {
+            return $this->errorResponse($message="Invalid Date",$code=422);
+        } 
+
         if($validator->fails()){
             return $this->errorResponse($message=$validator->messages(),$code=422);
         }
@@ -72,6 +90,17 @@ class MemoriesController extends Controller
             return $this->errorResponse($message=$e->getMessage(),$code=500);
 
             }
-
     }}
+
+    public function destroy(Memories $memories,$id)
+    {
+        $memory = $memories::find($id);
+        if($memory){
+            $memory->delete();
+            return $this->successResponse(['memory' => Null], 'Memory deleted successfully');
+        }
+        else{
+            return $this->errorResponse($message="No Such Memory Found",$code=404);
+        }
+    }
 }

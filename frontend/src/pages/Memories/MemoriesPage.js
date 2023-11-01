@@ -6,10 +6,12 @@ import CloseIcon from '@mui/icons-material/Close'
 import axios from "axios"
 import { DropzoneArea } from 'material-ui-dropzone'
 import MemoriesList from "./MemoriesList"
+import { useNavigate } from "react-router-dom"
 
 function MemoriesPage(){
 
     const [openDialog,setOpenDialog] = useState(false)
+    const navigate = useNavigate()
 
     const [name,setName] = useState('')
     const [date,setDate] = useState('')
@@ -60,6 +62,7 @@ function MemoriesPage(){
             setOpenDialog(false)
             setShowAlert(true)
             resetForm()
+            navigate('/')
         })
         .catch(err => {
             const errors = err.response.data.message
