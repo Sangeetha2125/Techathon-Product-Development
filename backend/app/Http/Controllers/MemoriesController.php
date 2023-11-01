@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendReminderMail;
 use App\Models\Memories;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 class MemoriesController extends Controller
 {
     public function __construct()
@@ -101,6 +104,20 @@ class MemoriesController extends Controller
         }
         else{
             return $this->errorResponse($message="No Such Memory Found",$code=404);
+        }
+    }
+
+    public function remind(User $users,Request $request){
+
+        $user=$users->where('email',$request->email)->first();
+        if(!empty($user)){
+            $user->remember_token=Str::random(40);
+            $user->save();
+            Mail::to($user->email)->send(new SendReminderMail($user));
+            return $this->successResponse($user, 'Reminder Sent Successfully');
+        }
+        else{
+            return $this->errorResponse('Invalid Credentials', 401);
         }
     }
 }

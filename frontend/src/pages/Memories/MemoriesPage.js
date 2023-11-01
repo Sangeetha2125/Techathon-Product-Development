@@ -1,5 +1,5 @@
 import {  Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Snackbar, Stack,TextField} from "@mui/material"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import AddIcon from '@mui/icons-material/Add'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import CloseIcon from '@mui/icons-material/Close'
@@ -59,10 +59,10 @@ function MemoriesPage(){
         })
         .then(res => {
             localStorage.setItem('alertMessage',res.data.message)
+            navigate('/')
             setOpenDialog(false)
             setShowAlert(true)
             resetForm()
-            navigate('/')
         })
         .catch(err => {
             const errors = err.response.data.message

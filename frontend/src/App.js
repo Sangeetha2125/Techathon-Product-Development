@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
-import MemoriesPage from './pages/Memories/MemoriesPage'
 
 function App() {
 
