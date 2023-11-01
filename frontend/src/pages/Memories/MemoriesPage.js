@@ -133,7 +133,7 @@ function MemoriesPage(){
         .catch(err => {
             setMemories([])
         })
-    },[memories])
+    },[])
 
     return (
         <Box>
