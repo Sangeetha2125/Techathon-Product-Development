@@ -6,12 +6,11 @@ import CloseIcon from '@mui/icons-material/Close'
 import axios from "axios"
 import { DropzoneArea } from 'material-ui-dropzone'
 import MemoriesList from "./MemoriesList"
-import { useNavigate } from "react-router-dom"
+import NavBar from "../../components/NavBar"
 
 function MemoriesPage(){
 
     const [openDialog,setOpenDialog] = useState(false)
-    const navigate = useNavigate()
 
     const [name,setName] = useState('')
     const [date,setDate] = useState('')
@@ -33,6 +32,23 @@ function MemoriesPage(){
 
     const [showAlert,setShowAlert] = useState(false)
     const [processing,setProcessing] = useState(false)
+
+    const [memories,setMemories] = useState([])
+
+    const fetchMemories = () => {
+        const user_id = JSON.parse(localStorage.getItem('current_user')).id
+        axios.get(`memories?user=${user_id}`)
+        .then(res => {
+            setMemories(res.data.data)
+        })
+        .catch(err => {
+            setMemories([])
+        })
+    }
+
+    useEffect(()=>{
+        fetchMemories()
+    },[showAlert])
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -59,7 +75,6 @@ function MemoriesPage(){
         })
         .then(res => {
             localStorage.setItem('alertMessage',res.data.message)
-            navigate('/')
             setOpenDialog(false)
             setShowAlert(true)
             resetForm()
@@ -122,21 +137,9 @@ function MemoriesPage(){
         localStorage.removeItem('alertMessage')
     }
 
-    const [memories,setMemories] = useState([])
-
-    useEffect(()=>{
-        const user_id = JSON.parse(localStorage.getItem('current_user')).id
-        axios.get(`memories?user=${user_id}`)
-        .then(res => {
-            setMemories(res.data.data)
-        })
-        .catch(err => {
-            setMemories([])
-        })
-    },[])
-
     return (
         <Box>
+            <NavBar />
             <Snackbar open={showAlert} onClose={handleAlertClose} anchorOrigin={{vertical:'top',horizontal:'right'}} autoHideDuration={3000}>
                 <Alert severity="success" onClose={handleAlertClose}>
                     {localStorage.getItem('alertMessage')}
@@ -194,13 +197,13 @@ function MemoriesPage(){
                         <Button type="submit" variant="outlined" color="inherit" endIcon={<SaveOutlinedIcon />} disabled={processing}>Save Memory</Button>
                     </DialogActions>
                 </Dialog>
-                <Stack alignItems="end" justifyItems="center" sx={{m:'0em 4em'}}>
+                <Stack alignItems="end" justifyItems="center" sx={{m:'0em 4em',mb:"1em"}}>
                     <Button variant="contained" color="success" endIcon={<AddIcon />} onClick={() => {
                         setOpenDialog(true)
                     }}>Add New</Button>
                 </Stack>
             </Box>
-            <MemoriesList memories={memories}/>
+            <MemoriesList setMemories={setMemories} memories={memories} fetchMemories={fetchMemories}/>
         </Box>
     )
 }

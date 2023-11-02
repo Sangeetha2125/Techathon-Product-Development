@@ -1,13 +1,13 @@
 import SignInForm from './pages/SigInForm'
 import SignUpForm from './pages/SignUpForm'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/HomePage'
 import Protected from './components/Protected'
 import { useEffect } from 'react'
 import axios from 'axios'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Timeline from './pages/Timeline/Timeline'
+import MemoriesPage from './pages/Memories/MemoriesPage'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route index element={
           <Protected>
-            <HomePage />
+            <MemoriesPage />
           </Protected>
         } />
         <Route path="/signup" element={

@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { AppBar, Toolbar, Button, Box, Typography, Stack } from '@mui/material'
 import { useState } from 'react'
 import axios from 'axios'
-import MemoriesPage from "./Memories/MemoriesPage"
 
-function HomePage(){
+function NavBar(){
 
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('current_user')))
     const navigate = useNavigate()
@@ -50,9 +49,8 @@ function HomePage(){
                    </Stack>
                 </Toolbar>
             </AppBar>
-            <MemoriesPage/>
         </Box>
     )
 }
 
-export default HomePage
+export default NavBar

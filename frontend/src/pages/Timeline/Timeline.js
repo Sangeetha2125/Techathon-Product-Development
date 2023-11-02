@@ -68,7 +68,7 @@ function Timeline(){
         <div style={{height:"1.5rem"}}></div>
         <div className="timeline-container">
             {memories && memories.map(memory => {
-                return <div className="tcard">
+                return <div key={memory.id} className="tcard">
                 <div className="tcard-content" >
                     <h1>{memory.name}</h1>
                     <p className="date">{(new Date(memory.date)).toDateString()}</p>

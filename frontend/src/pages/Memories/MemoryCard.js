@@ -12,15 +12,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, Stack } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-function MemoryCard({memory}){
+function MemoryCard({memory,setRefresh}){
 
     const username = JSON.parse(localStorage.getItem('current_user')).name
     const [showDeleteDialog,setShowDeleteDialog] = useState(false)
     const [deleteid ,setDeleteid] = useState()
     const [showAlert,setShowAlert] = useState(false)
-    const navigate = useNavigate()
 
     const takeDeleteId = (event) => {
         let id = event.target.id
@@ -34,7 +32,7 @@ function MemoryCard({memory}){
             localStorage.setItem('alertMessage',res.data.message)
             setShowDeleteDialog(false)
             setShowAlert(true)
-            navigate('/')
+            setRefresh(true)
         })
         .catch(err => {
             console.log(err)
@@ -54,7 +52,7 @@ function MemoryCard({memory}){
             </Alert>
         </Snackbar>
          <Dialog open={showDeleteDialog} onClose={()=>setShowDeleteDialog(false)} fullWidth>
-            <DialogTitle>Are you sure to delete the list?</DialogTitle>
+            <DialogTitle>Are you sure to delete the memory?</DialogTitle>
             <DialogContent>
                 <DialogActions>
                     <Button id={deleteid} variant="contained" color="error" onClick={handleDelete}>Yes</Button>
