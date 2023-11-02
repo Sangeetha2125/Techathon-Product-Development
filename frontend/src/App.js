@@ -6,8 +6,8 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
-import Timeline from './pages/Timeline/Timeline'
 import MemoriesPage from './pages/Memories/MemoriesPage'
+import MemoryDetails from './pages/Memories/MemoryDetails'
 
 function App() {
 
@@ -37,9 +37,14 @@ function App() {
          <Route path="/reset-password" element={
           <ResetPassword />
         } />
-        <Route path='/view-timeline' element={
+        <Route path='/memory/:id' element={
           <Protected>
-            <Timeline />
+            <MemoryDetails />
+          </Protected>
+        } />
+        <Route path='/shared-memories' element={
+          <Protected>
+            <ForgotPassword />
           </Protected>
         } />
       </Routes>

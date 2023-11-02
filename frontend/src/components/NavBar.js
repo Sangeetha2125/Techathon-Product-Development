@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Button, Box, Typography, Stack } from '@mui/material'
 import { useState } from 'react'
 import axios from 'axios'
 
-function NavBar(){
+function NavBar({memories,sharings}){
 
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('current_user')))
     const navigate = useNavigate()
@@ -38,12 +38,17 @@ function NavBar(){
                         <Typography variant="h5">Welcome, {user.name}!</Typography>
                     </Box>
                    <Stack direction="row" spacing={2}>
-                   {user && <Link to="/view-timeline">
+                   {user && (!memories && <Link to="/">
                         <Button variant="contained" size="large">
-                            View Timeline
+                            View Memories
                         </Button>
-                    </Link>}
-                    {user && <Button variant="contained" size="large" onClick={handleLogout}>
+                    </Link>)}
+                   {user && (!sharings && <Link to="/shared-memories">
+                        <Button variant="contained" size="large">
+                            View Shared Memories
+                        </Button>
+                    </Link>)}
+                    {user && <Button variant="contained" color="error" size="large" onClick={handleLogout}>
                         Logout
                     </Button>}
                    </Stack>

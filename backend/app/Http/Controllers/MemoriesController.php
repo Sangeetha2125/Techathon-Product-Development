@@ -41,6 +41,16 @@ class MemoriesController extends Controller
             return $this->errorResponse($message="No Records Found",$code=404);
         }
     }
+
+    public function show(Memories $memories,$id){
+        $memory = $memories::find($id);
+        if($memory){
+            return $this->successResponse($memory, 'Memory details');
+        }
+        else{
+            return $this->errorResponse($message="No Such Memory Found",$code=404);
+        }
+    }
     
     public function store(Request $request)
     {

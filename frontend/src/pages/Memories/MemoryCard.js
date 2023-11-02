@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, Stack } from '@mui/material';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function MemoryCard({memory,setRefresh}){
 
@@ -60,40 +61,42 @@ function MemoryCard({memory,setRefresh}){
                 </DialogActions>
             </DialogContent>
         </Dialog>
-        <Card sx={{ maxWidth: 345 }}>
-        <CardHeader
-            avatar={
-            <Avatar sx={{ bgcolor: deepPurple[500] }} aria-label="recipe">
-                {username[0]}
-            </Avatar>
-            }
-            action={
-            <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id}>
-                <DeleteIcon/>
-            </IconButton>
-            }
-            title={memory.name}
-            subheader={memory.date}
-        />
-        <CardMedia
-            component="img"
-            height="194"
-            image={memory.image_path}
-            alt={memory.name}
-        />
-        <CardContent>
-        <Typography>
-            {(memory.description).length > 220 ? (memory.description).slice(0, 220) + '...' : (memory.description).slice(0, 100)}
-            {(memory.description).length > 220 && <Button variant="text">Read More</Button>}
-        </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-            <Stack direction="row" spacing={1}>
-                <LocationOnIcon />
-                <Typography>{memory.location}</Typography>
-            </Stack>
-        </CardActions>
-        </Card>
+        <Link to={`/memory/${memory.id}`} style={{textDecoration:"none"}}>
+            <Card sx={{ maxWidth: 345 }}>
+            <CardHeader
+                avatar={
+                <Avatar sx={{ bgcolor: deepPurple[500] }} aria-label="recipe">
+                    {username[0]}
+                </Avatar>
+                }
+                action={
+                <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id}>
+                    <DeleteIcon/>
+                </IconButton>
+                }
+                title={memory.name}
+                subheader={memory.date}
+            />
+            <CardMedia
+                component="img"
+                height="194"
+                image={memory.image_path}
+                alt={memory.name}
+            />
+            <CardContent>
+            <Typography>
+                {(memory.description).length > 224 ? (memory.description).slice(0, 224) + '...' : (memory.description).slice(0, 224)}
+                {(memory.description).length > 224 && <Link to={`/memory/${memory.id}`}><Button variant="text">Read More</Button></Link>}
+            </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+                <Stack direction="row" spacing={1}>
+                    <LocationOnIcon />
+                    <Typography>{memory.location}</Typography>
+                </Stack>
+            </CardActions>
+            </Card>
+        </Link>
     </Box>
   );
 }

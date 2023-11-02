@@ -139,7 +139,7 @@ function MemoriesPage(){
 
     return (
         <Box>
-            <NavBar />
+            <NavBar memories={true}/>
             <Snackbar open={showAlert} onClose={handleAlertClose} anchorOrigin={{vertical:'top',horizontal:'right'}} autoHideDuration={3000}>
                 <Alert severity="success" onClose={handleAlertClose}>
                     {localStorage.getItem('alertMessage')}
@@ -203,7 +203,9 @@ function MemoriesPage(){
                     }}>Add New</Button>
                 </Stack>
             </Box>
-            <MemoriesList setMemories={setMemories} memories={memories} fetchMemories={fetchMemories}/>
+            <Box mb={5}>
+                <MemoriesList setMemories={setMemories} memories={memories} fetchMemories={fetchMemories}/>
+            </Box>
         </Box>
     )
 }

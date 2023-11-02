@@ -1,7 +1,82 @@
 .memories-list{
     max-width: 1200px;
     margin: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap:2em;
+}
+.memory-card{
+    width: 375px;
+}
+.memory{
+    max-width: 98%;
+    margin:2em auto;
+    padding: 1.5em;
+}
+.memory-content{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    padding-top: 1.75em;
+    padding-bottom: 2em;
+    justify-content: center;
+    width: 100%;
+}
+.memory img{
+    min-width: 50%;
+    object-fit: fill;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.memory-content .description{
+    min-width: 50%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 1em;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.memory-content .mem-description{
+    line-height: 1.55;
+    font-size: 1.1em;
+}
+.memory h1{
+ text-align: center;
+ padding: 1em auto;
+ font-weight: 700;
+ letter-spacing: 1px;
+ color: rgb(5, 0, 139);
+}
+.mem-flex{
+    display: flex;
+    gap: 2em;
+}
+.mem-card{
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin: 1em 0;
+    text-align: center;
+    padding: 1.5em;
+    font-size: 1.35em;
+    font-weight: bold;
+}
+.mem-location{
+    color: darkred;
+}
+.mem-date{
+    color: darkgreen;
+}
+
+@media screen and (max-width:1000px){
+    .memory-content{
+        flex-wrap: wrap;
+    }
+    .memory img{
+        width: 100%;
+    }
 }

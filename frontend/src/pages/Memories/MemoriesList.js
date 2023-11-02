@@ -27,7 +27,7 @@ function MemoriesList({memories,setMemories}){
     return (
         <div className="memories-list">
             {memories && memories.map(memory => {
-                return <MemoryCard key={memory.id} memory={memory} setRefresh={setRefresh}/>
+                return <div className="memory-card" key={memory.id}><MemoryCard memory={memory} setRefresh={setRefresh}/></div>
             })}
         </div>
     )
