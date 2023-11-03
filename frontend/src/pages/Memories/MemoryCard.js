@@ -61,42 +61,40 @@ function MemoryCard({memory,setRefresh}){
                 </DialogActions>
             </DialogContent>
         </Dialog>
-        <Link to={`/memory/${memory.id}`} style={{textDecoration:"none"}}>
-            <Card sx={{ maxWidth: 345 }}>
-            <CardHeader
-                avatar={
-                <Avatar sx={{ bgcolor: deepPurple[500] }} aria-label="recipe">
-                    {username[0]}
-                </Avatar>
-                }
-                action={
-                <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id}>
-                    <DeleteIcon/>
-                </IconButton>
-                }
-                title={memory.name}
-                subheader={memory.date}
-            />
-            <CardMedia
-                component="img"
-                height="194"
-                image={memory.image_path}
-                alt={memory.name}
-            />
-            <CardContent>
-            <Typography>
-                {(memory.description).length > 224 ? (memory.description).slice(0, 224) + '...' : (memory.description).slice(0, 224)}
-                {(memory.description).length > 224 && <Link to={`/memory/${memory.id}`}><Button variant="text">Read More</Button></Link>}
-            </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <Stack direction="row" spacing={1}>
-                    <LocationOnIcon />
-                    <Typography>{memory.location}</Typography>
-                </Stack>
-            </CardActions>
-            </Card>
-        </Link>
+        <Card sx={{ maxWidth: 345 }}>
+        <CardHeader
+            avatar={
+            <Avatar sx={{ bgcolor: deepPurple[500] }} aria-label="recipe">
+                {username[0]}
+            </Avatar>
+            }
+            action={
+            <IconButton aria-label="settings" onClick={takeDeleteId} id={memory.id}>
+                <DeleteIcon/>
+            </IconButton>
+            }
+            title={memory.name}
+            subheader={memory.date}
+        />
+        <CardMedia
+            component="img"
+            height="194"
+            image={memory.image_path}
+            alt={memory.name}
+        />
+        <CardContent>
+        <Typography>
+            {(memory.description).length > 224 ? (memory.description).slice(0, 224) + '...' : (memory.description).slice(0, 224)}
+            {(memory.description).length > 224 && <Link to={`/memory/${memory.id}`}><Button variant="text">Read More</Button></Link>}
+        </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+            <Stack direction="row" spacing={1}>
+                <LocationOnIcon />
+                <Typography>{memory.location}</Typography>
+            </Stack>
+        </CardActions>
+        </Card>
     </Box>
   );
 }
